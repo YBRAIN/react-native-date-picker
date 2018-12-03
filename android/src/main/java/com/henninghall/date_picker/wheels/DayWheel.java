@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 
 public class DayWheel extends Wheel {
+    public String dayWheelFormat;
 
     public DayWheel(PickerView pickerView, int id) {
         super(pickerView, id);
@@ -92,7 +93,6 @@ public class DayWheel extends Wheel {
 
     @Override
     public String getFormatTemplate() {
-        return "yy EEE d MMM";
+        return dayWheelFormat == null ? "yy EEE d MMM" : dayWheelFormat;
     }
-
 }

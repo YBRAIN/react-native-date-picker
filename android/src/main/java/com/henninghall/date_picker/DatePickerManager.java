@@ -8,11 +8,12 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
 import net.time4j.android.ApplicationStarter;
+
 import org.apache.commons.lang3.LocaleUtils;
 
 import java.util.Map;
 
-public class DatePickerManager extends SimpleViewManager<PickerView>  {
+public class DatePickerManager extends SimpleViewManager<PickerView> {
 
   public static final String REACT_CLASS = "DatePickerManager";
   public static ThemedReactContext context;
@@ -43,12 +44,17 @@ public class DatePickerManager extends SimpleViewManager<PickerView>  {
 
   @ReactProp(name = "date")
   public void setDate(PickerView view, @Nullable String date) {
-      this.date = date;
+    this.date = date;
+  }
+
+  @ReactProp(name = "dayWheelFormat")
+  public void setDayWheelFormat(PickerView view, @Nullable String format) {
+    view.setDayWheelFormat(format);
   }
 
   @ReactProp(name = "locale")
   public void setLocale(PickerView view, @Nullable String locale) {
-    view.setLocale(LocaleUtils.toLocale(locale.replace('-','_')));
+    view.setLocale(LocaleUtils.toLocale(locale.replace('-', '_')));
   }
 
   @ReactProp(name = "minimumDate")
@@ -80,16 +86,16 @@ public class DatePickerManager extends SimpleViewManager<PickerView>  {
   @Override
   protected void onAfterUpdateTransaction(PickerView view) {
     super.onAfterUpdateTransaction(view);
-      view.updateDisplayValuesIfNeeded();
-      view.setDate(Utils.isoToDate(date));
+    view.updateDisplayValuesIfNeeded();
+    view.setDate(Utils.isoToDate(date));
   }
 
   public Map getExportedCustomBubblingEventTypeConstants() {
     return MapBuilder.builder()
-            .put("dateChange", MapBuilder.of("phasedRegistrationNames",
-                    MapBuilder.of("bubbled", "onChange")
-                    )
-            ).build();
+      .put("dateChange", MapBuilder.of("phasedRegistrationNames",
+        MapBuilder.of("bubbled", "onChange")
+        )
+      ).build();
   }
 
 }

@@ -39,7 +39,7 @@ public class PickerView extends RelativeLayout {
 
     private SimpleDateFormat dateFormat;
     private HourWheel hourWheel;
-    private DayWheel dayWheel;
+    public DayWheel dayWheel;
     public MinutesWheel minutesWheel;
     private AmPmWheel ampmWheel;
     public int minuteInterval = 1;
@@ -77,6 +77,7 @@ public class PickerView extends RelativeLayout {
         hourWheel = new HourWheel(this, R.id.hour);
 
         dateFormat = new SimpleDateFormat(getDateFormatTemplate(), Locale.US);
+
         changeAmPmWhenPassingMidnightOrNoon();
     }
 
@@ -149,6 +150,11 @@ public class PickerView extends RelativeLayout {
         requireDisplayValueUpdate = true;
     }
 
+    public void setDayWheelFormat(String format) {
+        dayWheel.dayWheelFormat = format;
+        requireDisplayValueUpdate = true;
+    }
+
     // Rounding cal to closest minute interval
     public Calendar getInitialDate() {
         Calendar cal = Calendar.getInstance();
@@ -172,7 +178,7 @@ public class PickerView extends RelativeLayout {
         return dateTemplate + " "
                 + hourWheel.getFormatTemplate() + " "
                 + minutesWheel.getFormatTemplate()
-                +  ampmWheel.getFormatTemplate();
+                + ampmWheel.getFormatTemplate();
     }
 
     private String getDateString() {
